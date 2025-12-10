@@ -78,7 +78,6 @@ These are not done yet—but coming soon as part of my learning path:
 ## How to Run Locally
 
 ### 1. Clone project
-```bash
 git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
 cd YOUR_REPO
 npm install
@@ -99,7 +98,7 @@ Create a table named `notes` with these columns:
 | Column       | Type        | Default               |
 |--------------|-------------|-----------------------|
 | id           | uuid        | gen_random_uuid()     |
-| user_id      | uuid        | auth.uid()                     |
+| user_id      | uuid        | auth.uid()            |
 | title        | text        | —                     |
 | content      | text        | —                     |
 | created_at   | timestamptz | now()                 |
