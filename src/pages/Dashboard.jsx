@@ -29,6 +29,9 @@ export default function DashBoard() {
     // state to display delete modal
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+    // state to control full screen create note view
+    const [isCreating, setIsCreating] = useState(false);
+
     // for editing
     const [editingNote, setEditingNote] = useState();
     const [editTitle, setEditTitle] = useState();
@@ -144,46 +147,91 @@ export default function DashBoard() {
 
     if (!user) return <p>Loading user...</p>;
 
+    if (isCreating) {
+        return (
+            <div className="min-h-screen bg-gray-100 p-6">
+                <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+                    <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-2xl font-bold">New Note</h2>
+
+                        <button
+                            onClick={() => setIsCreating(false)}
+                            className="text-gray-500 hover:text-black text-xl"
+                        >
+                            ✕
+                        </button>
+                    </div>
+
+                    <form
+                        onSubmit={(e) => {
+                            handleAddNote(e);
+                            setIsCreating(false); // return to dashboard after save
+                        }}
+                    >
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            className="w-full p-3 border rounded mb-4 text-lg"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+
+                        <textarea
+                            placeholder="Start writing..."
+                            className="w-full p-3 border rounded h-80 resize-none"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                        />
+
+                        <div className="flex justify-end gap-3 mt-4">
+                            <button
+                                type="button"
+                                onClick={() => setIsCreating(false)}
+                                className="px-4 py-2 border rounded"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="px-4 py-2 bg-blue-600 text-white rounded"
+                            >
+                                Save Note
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="p-6 max-w-3xl mx-auto">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-2">
                 <h1 className="text-3xl font-bold">Your Notes</h1>
-                <button
-                    onClick={() => navigate("/profile")}
-                    className="bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700"
-                >
-                    Profile
-                </button>
-                <button
-                    onClick={() => setShowLogoutModal(true)}
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                >
-                    Logout
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => setIsCreating(true)}
+                        className="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                    >
+                        +
+                    </button>
+                    <button
+                        onClick={() => navigate("/profile")}
+                        className="bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700"
+                    >
+                        Profile
+                    </button>
+                    <button
+                        onClick={() => setShowLogoutModal(true)}
+                        className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                    >
+                        Logout
+                    </button>
+                </div>
             </div>
             <p className="text-gray-600 my-6">Welcome back, {user.email} </p>
-            <form
-                onSubmit={handleAddNote}
-                className="mb-6 p-4 bg-white shadow rounded"
-            >
-                <h2 className="text-xl font-semibold mb-2">Add New Note</h2>
-                <input
-                    type="text"
-                    placeholder="Title"
-                    className="w-full p-2 border rounded mb-3"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <textarea
-                    rows="3"
-                    placeholder="Content"
-                    className="w-full p-2 border rounded mb-3"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                >
-                </textarea>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add Note</button>
-            </form>
+
 
             {/* Notes list */}
             {loading
