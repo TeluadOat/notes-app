@@ -107,6 +107,7 @@ export default function Profile() {
                 <h2 className="text-lg font-semibold mb-2">Update Password</h2>
                 <input
                     type="password"
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="New Password"
                     className="w-full p-2 border rounded mb-3"
                 />
