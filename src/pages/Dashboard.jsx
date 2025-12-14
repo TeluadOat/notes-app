@@ -149,6 +149,12 @@ export default function DashBoard() {
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold">Your Notes</h1>
                 <button
+                    onClick={() => navigate("/profile")}
+                    className="bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700"
+                >
+                    Profile
+                </button>
+                <button
                     onClick={() => setShowLogoutModal(true)}
                     className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
                 >

@@ -3,6 +3,7 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx';
 import DashBoard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Profile from './pages/Profile.jsx';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import './App.css'
 
@@ -12,7 +13,7 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route element={<ProtectedRoute />} >
         <Route path='/' element={<DashBoard />} />
-        <Route path='/profile' element={<h1>Profile Page - Under Construction</h1>} />
+        <Route path='/profile' element={<Profile />} />
       </Route>
       <Route path="/register" element={<Register />} />
     </Routes>
