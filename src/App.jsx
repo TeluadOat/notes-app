@@ -5,7 +5,6 @@ import DashBoard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Profile from './pages/Profile.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
-import './App.css'
 
 function AppRoutes() {
   return (
