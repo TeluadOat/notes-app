@@ -119,7 +119,7 @@ export default function Profile() {
             </div>
 
             <button
-                onClick={() => navigate(-1)}
+                onClick={() => navigate("/")}
                 className="mt-6 block text-center text-blue-600 underline hover:text-blue-800"
             >
                 Back
