@@ -41,7 +41,8 @@ export default function DashBoard() {
     // state for clicked note
     const [activeNote, setActiveNote] = useState(null);
 
-    // note selected
+    // set welcome message
+    const [showWelcome, setShowWelcome] = useState(true);
 
     // fetch notes after user loads
     useEffect(() => {
@@ -61,6 +62,14 @@ export default function DashBoard() {
         if (error) console.log("Error fetching notes:", error);
         else setNotes(data);
     }
+
+    // check if new user
+    const isNewUser = user.created_at === user.last_sign_in_at;
+
+    useEffect(() => {
+        const timer = setTimeout(() => setShowWelcome(false), 5000);
+        return () => clearTimeout(timer);
+    }, [])
 
     // helper to truncate text
     const truncateText = (text, maxLength = 120) => {
@@ -244,7 +253,10 @@ export default function DashBoard() {
                     </button>
                 </div>
             </div>
-            <p className="text-gray-600 my-6">Welcome back, {user.email} </p>
+            <p className="text-gray-600 my-6">
+                {showWelcome ? (isNewUser ? "Welcome," : "Welcome back,") : ""}
+                <span className="block">{user.email}</span>
+            </p>
 
 
             {/* Notes list */}
