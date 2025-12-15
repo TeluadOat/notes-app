@@ -5,7 +5,7 @@ export default function ({
 
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50" >
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md min-h-screen">
                 <h2 className="text-xl font-semibold mb-4 text-center">Edit Note</h2>
                 <input
                     type="text"
@@ -19,7 +19,7 @@ export default function ({
                     placeholder="Content"
                     onChange={(e) => setContent(e.target.value)}
                     rows="4"
-                    className="w-full border p-2 rounded mb-4"
+                    className="w-full border-1 p-2 rounded h-85 mb-4 resize-none"
                 />
                 <div className="flex gap-3 mt-2">
                     <button

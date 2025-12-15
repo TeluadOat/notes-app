@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import LogoutModal from "../components/LogoutModal";
 import DeleteModal from "../components/DeleteModal/DeleteModal";
 import EditNoteModal from "../components/EditNoteModal";
+import ViewNoteModal from "../components/ViewNoteModal";
 
 export default function DashBoard() {
     const navigate = useNavigate();
@@ -37,6 +38,11 @@ export default function DashBoard() {
     const [editTitle, setEditTitle] = useState();
     const [editContent, setEditContent] = useState();
 
+    // state for clicked note
+    const [activeNote, setActiveNote] = useState(null);
+
+    // note selected
+
     // fetch notes after user loads
     useEffect(() => {
         if (user) fetchNotes();
@@ -55,6 +61,14 @@ export default function DashBoard() {
         if (error) console.log("Error fetching notes:", error);
         else setNotes(data);
     }
+
+    // helper to truncate text
+    const truncateText = (text, maxLength = 120) => {
+        if (!text) return "";
+        return text.length > maxLength
+            ? text.slice(0, maxLength) + "..."
+            : text;
+    };
 
     // add a new note with optimistic UI update
     const handleAddNote = async (e) => {
@@ -177,7 +191,7 @@ export default function DashBoard() {
                         />
 
                         <textarea
-                            placeholder="Start writing..."
+                            placeholder="Write note..."
                             className="w-full p-3 border rounded h-80 resize-none"
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
@@ -241,25 +255,18 @@ export default function DashBoard() {
                         {notes.length === 0
                             ? (<p className="text-gray-500">No notes yet</p>)
                             : (notes.map((note) => (
-                                <div key={note.id} className="bg-white p-4 shadow rounded relative">
+                                <div
+                                    key={note.id}
+                                    onClick={() => setActiveNote(note)}
+                                    className="bg-white p-4 shadow rounded cursor-pointer hover:bg-gray-50 transition">
                                     <h3 className="font-bold text-lg">{note.title}</h3>
-                                    <p className="text-gray-700 mt-1 whitespace-pre-wrap">{note.content}</p>
-                                    <p>{new Date(note.created_at).toLocaleString()}</p>
-                                    <button
-                                        onClick={() => openEditModal(note)}
-                                        className="absolute top-3 right-16 text-blue-500 hover:text-blue-700"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            setNoteIdToDelete(note.id);
-                                            setShowDeleteModal(true);
-                                        }}
-                                        className="absolute top-3 right-3 text-red-500 hover:text-red-700"
-                                    >
-                                        Delete
-                                    </button>
+
+                                    {/* truncate content for preview */}
+                                    <p className="text-gray-700 mt-1">
+                                        {truncateText(note.content)}
+                                    </p>
+
+                                    <p className="text-xs text-gray-500 mt-2">{new Date(note.created_at).toLocaleString()}</p>
                                 </div>
                             )))
                         }
@@ -274,6 +281,21 @@ export default function DashBoard() {
                     </div>
                 )
             }
+
+            <ViewNoteModal
+                note={activeNote}
+                onClose={() => setActiveNote(null)}
+                onEdit={(note) => {
+                    setActiveNote(null);
+                    openEditModal(note);
+                }}
+                onDelete={(id) => {
+                    setActiveNote(null);
+                    setNoteIdToDelete(id);
+                    setShowDeleteModal(true);
+                }}
+            />
+
             {/*logout modal*/}
             <LogoutModal
                 open={showLogoutModal}
