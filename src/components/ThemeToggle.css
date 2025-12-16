@@ -1,0 +1,45 @@
+.toggle {
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  position: relative;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  border-radius: 30px;
+  transition: 0.1s;
+  cursor: pointer;
+  background-color: rgba(191, 191, 195, 0.5);
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  background: rgb(65, 65, 66);
+  border-radius: 50%;
+  left: 3px;
+  bottom: 3px;
+  transition: 0.1s;
+}
+
+.toggle>input:checked+.slider::before {
+  transform: translateX(30px);
+  background: blue;
+}
+
+.toggle>input:checked+.slider {
+  background-color: rgb(186, 213, 237);
+}

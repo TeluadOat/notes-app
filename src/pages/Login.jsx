@@ -34,10 +34,10 @@ export default function Login() {
     }
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gray-100">
+        <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-black">
             <form
                 onSubmit={handleLogin}
-                className="bg-white p-8 rounded shadow-md w-full max-w-sm"
+                className="bg-white dark:bg-black dark:text-gray-200  p-8 rounded shadow-md w-full max-w-sm"
             >
                 <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -47,7 +47,7 @@ export default function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onInput={() => setError("")}
-                    className="w-full p-2 mb-4 border border-gray-300 rounded"
+                    className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none"
                 />
                 <input
                     type="password"
@@ -55,14 +55,14 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     onInput={() => setError("")}
-                    className="w-full p-2 mb-4 border border-gray-300 rounded"
+                    className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none"
 
                 />
                 <button
                     type="submit"
-                    className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+                    className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 cursor-pointer"
                 >
-                    Login
+                    {loading ? "Loging in..." : "Login"}
                 </button>
                 <p className="mt-4 text-center text-gray-500">Don't have an account? <Link to="/register" className="text-blue-500">Register</Link></p>
             </form>

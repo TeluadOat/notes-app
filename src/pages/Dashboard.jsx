@@ -172,14 +172,14 @@ export default function DashBoard() {
 
     if (isCreating) {
         return (
-            <div className="min-h-screen bg-gray-100 p-6">
-                <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+            <div className="min-h-screen bg-gray-100 dark:bg-black p-6">
+                <div className="max-w-3xl mx-auto bg-white dark:bg-black dark:text-gray-100 p-6 rounded shadow">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-2xl font-bold">New Note</h2>
 
                         <button
                             onClick={() => setIsCreating(false)}
-                            className="text-gray-500 hover:text-black text-xl"
+                            className="text-gray-500 hover:text-black dark:hover:text-gray-200 text-xl cursor-pointer"
                         >
                             ✕
                         </button>
@@ -194,14 +194,14 @@ export default function DashBoard() {
                         <input
                             type="text"
                             placeholder="Title"
-                            className="w-full p-3 border rounded mb-4 text-lg"
+                            className="w-full p-3 border border-gray-400 dark:border-gray-500 rounded mb-4 text-lg focus:outline-none focus:ring-0"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         />
 
                         <textarea
                             placeholder="Write note..."
-                            className="w-full p-3 border rounded h-80 resize-none"
+                            className="w-full p-3 border border-gray-400 dark:border-gray-500 rounded h-80 resize-none focus:outline-none focus:ring-0"
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                         />
@@ -210,14 +210,14 @@ export default function DashBoard() {
                             <button
                                 type="button"
                                 onClick={() => setIsCreating(false)}
-                                className="px-4 py-2 border rounded"
+                                className="px-4 py-2 border hover:text-gray-300 rounded cursor-pointer"
                             >
                                 Cancel
                             </button>
 
                             <button
                                 type="submit"
-                                className="px-4 py-2 bg-blue-600 text-white rounded"
+                                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded cursor-pointer"
                             >
                                 Save Note
                             </button>
@@ -229,7 +229,7 @@ export default function DashBoard() {
     }
 
     return (
-        <div className="p-6 max-w-3xl mx-auto">
+        <div className="p-6 dark:bg-black dark:text-white max-w-3xl h-screen mx-auto">
             <div className="flex justify-between items-center gap-2">
                 <h1 className="text-3xl font-bold">Your Notes</h1>
                 <div className="flex gap-2">
@@ -253,7 +253,7 @@ export default function DashBoard() {
                     </button>
                 </div>
             </div>
-            <p className="text-gray-600 my-6">
+            <p className="text-gray-600 dark:text-gray-400 my-6">
                 {showWelcome ? (isNewUser ? "Welcome," : "Welcome back,") : ""}
                 <span className="block">{user.email}</span>
             </p>
@@ -270,15 +270,15 @@ export default function DashBoard() {
                                 <div
                                     key={note.id}
                                     onClick={() => setActiveNote(note)}
-                                    className="bg-white p-4 shadow rounded cursor-pointer hover:bg-gray-50 transition">
-                                    <h3 className="font-bold text-lg">{note.title}</h3>
+                                    className="bg-white dark:bg-black p-4 shadow dark:shadow-gray-800 dark:hover:shadow-gray-700 rounded cursor-pointer hover:bg-gray-50 dark:hover:bg-black transition">
+                                    <h3 className="font-bold text-lg dark:text-gray-200">{note.title}</h3>
 
                                     {/* truncate content for preview */}
-                                    <p className="text-gray-700 mt-1">
+                                    <p className="text-gray-700 dark:text-gray-200 mt-1">
                                         {truncateText(note.content)}
                                     </p>
 
-                                    <p className="text-xs text-gray-500 mt-2">{new Date(note.created_at).toLocaleString()}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{new Date(note.created_at).toLocaleString()}</p>
                                 </div>
                             )))
                         }

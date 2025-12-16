@@ -6,7 +6,7 @@ export default function ViewNoteModal({
 
     return (
         <div className="fixed inset-0  bg-black/40 overflow-auto z-50">
-            <div className="bg-white w-full max-w-4xl min-h-screen p-6 rounded shadow relative">
+            <div className="bg-white dark:bg-black w-full max-w-4xl min-h-screen p-6 rounded shadow relative">
                 <button
                     onClick={onClose}
                     className="absolute text-md top-5 right-5"

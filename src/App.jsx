@@ -5,6 +5,7 @@ import DashBoard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Profile from './pages/Profile.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
 
 function AppRoutes() {
   return (
@@ -21,9 +22,11 @@ function AppRoutes() {
 
 function App() {
   return (
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 
